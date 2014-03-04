@@ -1,0 +1,73 @@
+<?php
+	
+	
+	//reception des données ajax
+	function ajaxpart_menu(){
+		$items= array ();
+		
+		$items['ajaxpart-req/%/%/%/%/%/%/%/%']= array (
+			'page callback' => 'ajax_ajaxpart',
+			'page arguments' => array(1, 2, 3, 4, 5, 6, 7, 8),
+			'access callback' => 1,
+			'access arguments' => array('administer site configuration'),
+			'type' => MENU_CALLBACK,
+		);
+		
+		return $items;
+		
+	}
+
+	
+	//traitement des données
+    function ajax_ajaxpart($nom='',$prenom='',$telephone='',$email='',$entreprise='',$fonction='',$departement='',$nodeid){
+	    
+		
+		if($nom=='-' OR $prenom=='-' OR $telephone=='-' OR $email=='-' OR $departement=='-'){
+			$retour = array(
+				'valide' => 0,
+				'nom' => $nom,
+				'prenom' => $prenom,
+				'telephone' => $telephone,
+				'email' => $email,
+				'entreprise' => $entreprise,
+				'fonction' => $fonction,
+				'departement' => $departement,
+				'file' => ''
+			);
+		}
+		else{
+				
+			$node = node_load($nodeid);
+			
+			
+			$retour = array(
+				'valide' => 1,
+				'nom' => $nom,
+				'prenom' => $prenom,
+				'telephone' => $telephone,
+				'email' => $email,
+				'entreprise' => $entreprise,
+				'fonction' => $fonction,
+				'departement' => $departement,
+				'file' => $pdf,
+				'fichier' => $file,
+				'ouvert' => $ouvert,
+				'existe' => $existe
+			);
+			
+			
+		}
+		
+		
+		header("Cache-Control: no-cache, must-revalidate");
+	    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+		header('Content-type: application/json;');
+		echo json_encode($retour);
+	    exit();
+    }
+	
+	
+	
+	
+	
+	

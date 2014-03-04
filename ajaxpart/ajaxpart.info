@@ -1,0 +1,5 @@
+name = ajaxpart
+description = Gérer des contenus en Ajax dans Drupal
+core = 7.x
+
+configure = admin/config/content/ajaxpart

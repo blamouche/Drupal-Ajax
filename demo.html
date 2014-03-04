@@ -1,0 +1,30 @@
+	<script>
+		$('#catalogue-submit').click(function(){
+			var nom = '-'; if ($('#nom').val()!='') nom = $('#nom').val();
+			var prenom = '-'; if ($('#prenom').val()!='') prenom = $('#prenom').val();
+			var telephone = '-'; if ($('#telephone').val()!='') telephone = $('#telephone').val();
+			var email = '-'; if ($('#email').val()!='') email = $('#email').val();
+			var entreprise = '-'; if ($('#entreprise').val()!='') entreprise = $('#entreprise').val();
+			var fonction = '-'; if ($('#fonction').val()!='') fonction = $('#fonction').val();
+			var departement = '-'; if ($('#departement').val()!='') departement = $('#departement').val();
+			
+			
+			
+			$.ajax({
+				url: '/ajaxpart-req/'+nom+'/'+prenom+'/'+telephone+'/'+email+'/'+entreprise+'/'+fonction+'/'+departement+'/'+50+'/catalogue',
+				dataType: 'json',
+				success: function(data){
+					if(data.valide==1){
+						$('.catalogue-result').html('').append(data.file);
+					}
+					else{
+						$('.catalogue-result').html('').append('erreur');
+					}
+				},
+				error: function(data){
+					$('.catalogue-result').html('').append('erreur');
+				}
+			});
+			
+		});
+	</script>
